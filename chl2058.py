@@ -1,3 +1,4 @@
+"""
 import sys
 
 def convertTemperature(mode, value):  #function
@@ -22,6 +23,32 @@ result = convertTemperature(temperatureMode, contentsValue) #this is the call
 with open("challenge.out", "w") as outputFile:
     outputFile.write(str(result))
 
+"""
+
+import sys
+
+
+def convertTemperature(inputMode, value):
+    if inputMode == "FtoC":
+        return (value - 32) * 5 / 9
+    elif inputMode == "CtoF":
+        return (value * 9 / 5) + 32
+    return None
+
+
+try:
+    temperatureMode = sys.argv[1]
+except IndexError:
+    pass
+else:
+    print (f"argument: {sys.argv[1]}")
+    with open("challenge.data", "r") as rawFile:
+        contentsValue = float(rawFile.read().strip())
+    print (f"value: {contentsValue}")
+    result = convertTemperature(temperatureMode, contentsValue)
+    print (f"result: {result}")
+    with open("challenge.out", "w") as outputFile:
+        outputFile.write(f"{result}")
 
 
 """
