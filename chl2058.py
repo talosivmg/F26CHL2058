@@ -16,18 +16,11 @@ temperatureMode = sys.argv[1]  # get argument
 with open("challenge.data", "r") as rawFile:
     contents = rawFile.read().strip()
     contentsValue = float(contents)
-print (f"Data in: {contentsValue}")
 
 result = convertTemperature(temperatureMode, contentsValue) #this is the call
 
 with open("challenge.out", "w") as outputFile:
     outputFile.write(str(result))
-
-print (f"Data out: {result}")
-
-
-
-
 
 
 
