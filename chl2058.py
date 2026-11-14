@@ -25,7 +25,7 @@ with open("challenge.out", "w") as outputFile:
 import sys  # Import sys so the script can read command-line arguments from sys.argv.
 
 
-def convertTemperature(mode, value):  # Define a function that takes a conversion mode and a numeric temperature.
+def convert(mode, value):  # Define a function that takes a conversion mode and a numeric temperature.
     if mode == "FtoC":  # Check whether the requested conversion is Fahrenheit to Celsius.
         return (value - 32) * 5 / 9  # Subtract 32, multiply by 5/9, and return the Celsius temperature.
     elif mode == "CtoF":  # If the first condition was false, check for Celsius to Fahrenheit.
@@ -45,7 +45,7 @@ with open("challenge.data", "r") as rawFile:  # Open the input file for reading 
     contents = rawFile.read().strip()  # Read the file as text and remove whitespace from both ends.
     contentsValue = float(contents)  # Convert the text to a number that can have a decimal part.
 print (f"Chanllenge data: {contentsValue}")
-result = convertTemperature(temperatureMode, contentsValue)  # Call the function with the mode and temperature, then store its return value.
+result = convert(temperatureMode, contentsValue)  # Call the function with the mode and temperature, then store its return value.
 
 with open("challenge.out", "w") as outputFile:  # Open the output file for writing, replacing any existing contents.
     outputFile.write(str(result))  # Convert the result to text and write it to the file
