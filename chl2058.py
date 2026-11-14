@@ -1,103 +1,25 @@
-""""
-import sys
+import sys  # Import the sys module to read command-line arguments
 
-def convertTemperature(mode, value):  #function
-    if mode == "FtoC":
-        return (value - 32) * 5 / 9
-    elif mode == "CtoF":
-        return (value * 9 / 5) + 32
-    else:
-        return None
+def convert(mode, value):  # Define the conversion function taking the mode string and numeric temperature
+    if mode == "FtoC":  # Check if the requested conversion is Fahrenheit to Celsius
+        return (value - 32) * 5 / 9  # Calculate and return the Celsius value as a float
+    elif mode == "CtoF":  # Check if the requested conversion is Celsius to Fahrenheit
+        return (value * 9 / 5) + 32  # Calculate and return the Fahrenheit value as a float
+    else:  # Catch any unrecognized, missing, or invalid mode strings
+        return None  # Return None to signal an invalid conversion mode
 
-if len(sys.argv) > 1:  #this is the check
-    temperatureMode = sys.argv[1]  # get argument
+if __name__ == "__main__":  # Run the file I/O logic only when executed directly as a script (not imported)
+    if len(sys.argv) > 1:  # Check if a command-line argument was supplied after the script filename
+        temperatureMode = sys.argv[1]  # Store the first command-line argument as the conversion mode
+    else:  # Handle runs where no command-line argument was provided
+        temperatureMode = "None"  # Set a fallback string that will safely fail validation in convert()
+            
+    with open("challenge.data", "r") as rawFile:  # Open the input data file safely in read mode
+        contents = rawFile.read().strip()  # Read the entire file and strip surrounding whitespace/newlines
+        contentsValue = float(contents)  # Convert the cleaned text string into a floating-point number
 
-with open("challenge.data", "r") as rawFile:
-    contents = rawFile.read().strip()
-    contentsValue = float(contents)
+    result = convert(temperatureMode, contentsValue)  # Call convert() with the CLI mode and parsed float value
 
-result = convertTemperature(temperatureMode, contentsValue) #this is the call
-
-with open("challenge.out", "w") as outputFile:
-    outputFile.write(str(result))
-"""
-
-import sys  # Import sys so the script can read command-line arguments from sys.argv.
-
-
-def convert(mode, value):  # Define a function that takes a conversion mode and a numeric temperature.
-    if mode == "FtoC":  # Check whether the requested conversion is Fahrenheit to Celsius.
-        return (value - 32) * 5 / 9  # Subtract 32, multiply by 5/9, and return the Celsius temperature.
-    elif mode == "CtoF":  # If the first condition was false, check for Celsius to Fahrenheit.
-        return (value * 9 / 5) + 32  # Multiply by 9/5, add 32, and return the Fahrenheit temperature.
-    else:  # Run this block when neither conversion mode matches.
-        return None  # Return None to indicate that the supplied mode is invalid.
-
-
-if len(sys.argv) > 1:  # Check whether sys.argv contains the script name and at least one extra argument.
-    temperatureMode = sys.argv[1]  # Store the first argument after the script name as the conversion mode.
-    print (f"temperatureMode: {temperatureMode}")
-else: 
-    temperatureMode = "None"
-    print (f"temperatureMode: {temperatureMode}")
-        
-with open("challenge.data", "r") as rawFile:  # Open the input file for reading and close it when this block ends.
-    contents = rawFile.read().strip()  # Read the file as text and remove whitespace from both ends.
-    contentsValue = float(contents)  # Convert the text to a number that can have a decimal part.
-print (f"Chanllenge data: {contentsValue}")
-result = convert(temperatureMode, contentsValue)  # Call the function with the mode and temperature, then store its return value.
-
-with open("challenge.out", "w") as outputFile:  # Open the output file for writing, replacing any existing contents.
-    outputFile.write(str(result))  # Convert the result to text and write it to the file
-    print (f"Challenge out: {result}")
-
-
-"""
-import sys
-
-
-def convertTemperature(inputMode, value):
-    if inputMode == "FtoC":
-        return (value - 32) * 5 / 9
-    elif inputMode == "CtoF":
-        return (value * 9 / 5) + 32
-    return None
-
-
-try:
-    temperatureMode = sys.argv[1]
-except IndexError:
-    pass
-else:
-    print (f"argument: {sys.argv[1]}")
-    with open("challenge.data", "r") as rawFile:
-        contentsValue = float(rawFile.read().strip())
-    print (f"value: {contentsValue}")
-    result = convertTemperature(temperatureMode, contentsValue)
-    print (f"result: {result}")
-    with open("challenge.out", "w") as outputFile:
-        outputFile.write(f"{result}")
-
-"""
-
-
-"""
-import sys
-temperatureMode = sys.argv [1]
-
-with open ("challenge.data", "r") as rawFile:
-    contents = rawFile.read().strip()
-    contentsValue = float(contents)
-
-def convert(inputMode, value):
-    if inputMode == "FtoC":
-        tempCalculation = ( value -32 ) * 5 / 9
-    elif inputMode == "CtoF":
-        tempCalculation = ( value * 9 / 5 ) + 32
-    return tempCalculation
-
-result = convert(temperatureMode, contentsValue)
-
-with open ( "challenge.out", "w") as outputFile:
-    outputFile.write(str(result))
-"""
+    if result is not None:  # Only write to disk if convert() returned a valid calculation (protects prior output)
+        with open("challenge.out", "w") as outputFile:  # Open the output file in write mode
+            outputFile.write(str(result))  # Convert the float result to a string and write it to the output file

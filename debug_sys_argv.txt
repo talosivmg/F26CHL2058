@@ -1,0 +1,2 @@
+sys.argv contents: ['.\\chl2058.py', 'CtoF']
+Length of sys.argv: 2
