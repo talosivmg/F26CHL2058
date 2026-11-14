@@ -36,16 +36,20 @@ def convertTemperature(mode, value):  # Define a function that takes a conversio
 
 if len(sys.argv) > 1:  # Check whether sys.argv contains the script name and at least one extra argument.
     temperatureMode = sys.argv[1]  # Store the first argument after the script name as the conversion mode.
-else: temperatureMode = "None"
+    print (f"temperatureMode: {temperatureMode}")
+else: 
+    temperatureMode = "None"
+    print (f"temperatureMode: {temperatureMode}")
         
 with open("challenge.data", "r") as rawFile:  # Open the input file for reading and close it when this block ends.
     contents = rawFile.read().strip()  # Read the file as text and remove whitespace from both ends.
     contentsValue = float(contents)  # Convert the text to a number that can have a decimal part.
-
+print (f"Chanllenge data: {contentsValue}")
 result = convertTemperature(temperatureMode, contentsValue)  # Call the function with the mode and temperature, then store its return value.
 
 with open("challenge.out", "w") as outputFile:  # Open the output file for writing, replacing any existing contents.
     outputFile.write(str(result))  # Convert the result to text and write it to the file
+    print (f"Challenge out: {result}")
 
 
 """
